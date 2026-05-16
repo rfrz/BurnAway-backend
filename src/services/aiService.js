@@ -13,7 +13,8 @@ const getPredictUrl = () => {
     throw new AppError('ML API URL is not configured', 500);
   }
 
-  return `${process.env.ML_API_URL.replace(/\/$/, '')}/predict`;
+  const predictPath = process.env.ML_PREDICT_PATH || '/predict_burnout';
+  return `${process.env.ML_API_URL.replace(/\/$/, '')}/${predictPath.replace(/^\//, '')}`;
 };
 
 export const getBurnoutPrediction = async (payload) => {

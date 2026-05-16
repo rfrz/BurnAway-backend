@@ -19,22 +19,25 @@ model User {
 }
 
 model Prediction {
-  id               String   @id @default(uuid())
-  userId           String
-  user             User     @relation(fields: [userId], references: [id])
+  id                String   @id @default(uuid())
+  user_id           String
+  user              User     @relation(fields: [user_id], references: [id])
 
-  dailyWorkHours   Float
-  sleepHours       Float
-  caffeineIntake   Int
-  bugsPerDay       Int
-  commitsPerDay    Int
-  meetingsPerDay   Int
-  screenTime       Float
-  exerciseHours    Float
-  stressLevel      Float
+  daily_work_hours  Float
+  sleep_hours       Float
+  caffeine_intake   Int
+  bugs_per_day      Int
+  commits_per_day   Int
+  meetings_per_day  Int
+  screen_time       Float
+  exercise_hours    Float
+  stress_level      Float
 
-  result           String
-  confidenceScore  Float
+  burnout_level     String
+  confidence        Float
+  stress_estimate   Float
+  probabilities     Json
+  advice            String
 
-  createdAt        DateTime @default(now())
+  created_at        DateTime @default(now())
 }
