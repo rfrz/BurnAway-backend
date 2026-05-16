@@ -56,14 +56,14 @@ export const loginSchema = z
 
 export const predictionSchema = z
   .object({
-    dailyWorkHours: z.coerce.number().min(0).max(24),
-    sleepHours: z.coerce.number().min(0).max(24),
-    caffeineIntake: z.coerce.number().int().min(0).max(2000),
-    bugsPerDay: z.coerce.number().int().min(0).max(1000),
-    commitsPerDay: z.coerce.number().int().min(0).max(1000),
-    meetingsPerDay: z.coerce.number().int().min(0).max(100),
-    screenTime: z.coerce.number().min(0).max(24),
-    exerciseHours: z.coerce.number().min(0).max(24),
-    stressLevel: z.coerce.number().min(0).max(10)
+    daily_work_hours: z.coerce.number().min(0).max(24),
+    sleep_hours: z.coerce.number().min(0).max(24),
+    caffeine_intake: z.coerce.number().int().min(0).max(2000),
+    bugs_per_day: z.coerce.number().int().min(0).max(1000),
+    commits_per_day: z.coerce.number().int().min(0).max(1000),
+    meetings_per_day: z.coerce.number().int().min(0).max(100),
+    screen_time: z.coerce.number().min(0).max(24),
+    exercise_hours: z.coerce.number().min(0).max(24),
+    stress_level: z.coerce.number().min(0).max(100)
   })
   .strict();

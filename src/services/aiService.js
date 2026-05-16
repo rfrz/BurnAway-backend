@@ -9,11 +9,12 @@ const aiClient = axios.create({
 });
 
 const getPredictUrl = () => {
-  if (!process.env.ML_API_URL) {
-    throw new AppError('ML API URL is not configured', 500);
+  if (!process.env.DL_API_URL) {
+    throw new AppError('DL API URL is not configured', 500);
   }
 
-  return `${process.env.ML_API_URL.replace(/\/$/, '')}/predict`;
+  const predictPath = process.env.DL_PREDICT_PATH || '/predict_burnout';
+  return `${process.env.DL_API_URL.replace(/\/$/, '')}/${predictPath.replace(/^\//, '')}`;
 };
 
 export const getBurnoutPrediction = async (payload) => {
@@ -22,11 +23,11 @@ export const getBurnoutPrediction = async (payload) => {
     return response.data;
   } catch (error) {
     if (error.code === 'ECONNABORTED') {
-      throw new AppError('ML prediction service timed out', 503);
+      throw new AppError('DL prediction service timed out', 503);
     }
 
     if (error.response || error.request) {
-      throw new AppError('ML prediction service is unavailable', 503);
+      throw new AppError('DL prediction service is unavailable', 503);
     }
 
     throw error;
