@@ -6,7 +6,7 @@ import { validateBody, predictionSchema } from '../utils/validation.js';
 
 const router = Router();
 
-router.post('/predict', authenticate, validateBody(predictionSchema), asyncHandler(createPrediction));
-router.get('/history', authenticate, asyncHandler(getPredictionHistory));
+router.post('/predictions', authenticate, validateBody(predictionSchema), asyncHandler(createPrediction));
+router.get('/predictions', authenticate, asyncHandler(getPredictionHistory));
 
 export default router;
