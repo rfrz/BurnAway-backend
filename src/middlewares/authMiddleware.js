@@ -1,7 +1,8 @@
 import jwt from 'jsonwebtoken';
+import prisma from '../config/prismaClient.js';
 import { AppError } from './errorHandler.js';
 
-export const authenticate = (req, res, next) => {
+export const authenticate = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -14,23 +15,33 @@ export const authenticate = (req, res, next) => {
     }
 
     const token = authHeader.split(' ')[1];
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    let decoded;
+
+    try {
+      decoded = jwt.verify(token, process.env.JWT_SECRET);
+    } catch {
+      throw new AppError('Invalid or expired authentication token', 401);
+    }
 
     if (!decoded?.userId) {
       throw new AppError('Invalid authentication token', 401);
     }
 
+    const user = await prisma.user.findUnique({
+      where: { id: decoded.userId },
+      select: { id: true }
+    });
+
+    if (!user) {
+      throw new AppError('Authenticated user was not found', 404);
+    }
+
     req.user = {
-      id: decoded.userId
+      id: user.id
     };
 
     next();
   } catch (error) {
-    if (error instanceof AppError) {
-      next(error);
-      return;
-    }
-
-    next(new AppError('Invalid or expired authentication token', 401));
+    next(error);
   }
 };

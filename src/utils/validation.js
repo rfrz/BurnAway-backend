@@ -54,6 +54,39 @@ export const loginSchema = z
   })
   .strict();
 
+export const updateProfileSchema = z
+  .object({
+    username: z
+      .string()
+      .trim()
+      .min(3, 'Username must be at least 3 characters')
+      .max(50, 'Username must be at most 50 characters')
+      .regex(/^[A-Za-z0-9_]+$/, 'Username may only contain letters, numbers, and underscores')
+      .optional(),
+    email: z
+      .string()
+      .trim()
+      .email('Email must be valid')
+      .max(255, 'Email must be at most 255 characters')
+      .transform((email) => email.toLowerCase())
+      .optional(),
+    age: z.coerce
+      .number()
+      .int('Age must be an integer')
+      .min(13, 'Age must be at least 13')
+      .max(100, 'Age must be at most 100')
+      .optional(),
+    experience_years: z.coerce
+      .number()
+      .min(0, 'Experience years cannot be negative')
+      .max(80, 'Experience years must be realistic')
+      .optional()
+  })
+  .strict()
+  .refine((data) => Object.keys(data).length > 0, {
+    message: 'At least one profile field is required'
+  });
+
 export const predictionSchema = z
   .object({
     daily_work_hours: z.coerce.number().min(0).max(24),
