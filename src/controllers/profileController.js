@@ -1,7 +1,7 @@
 import prisma from '../config/prismaClient.js';
 import { AppError } from '../middlewares/errorHandler.js';
 
-const profileSelect = {
+const currentUserSelect = {
   id: true,
   username: true,
   email: true,
@@ -10,7 +10,7 @@ const profileSelect = {
   createdAt: true
 };
 
-const formatProfile = (user) => ({
+const formatUser = (user) => ({
   user_id: user.id,
   username: user.username,
   email: user.email,
@@ -29,12 +29,12 @@ const getAuthenticatedUserId = (req) => {
   return userId;
 };
 
-export const getProfile = async (req, res) => {
+export const getCurrentUser = async (req, res) => {
   const userId = getAuthenticatedUserId(req);
 
   const user = await prisma.user.findUnique({
     where: { id: userId },
-    select: profileSelect
+    select: currentUserSelect
   });
 
   if (!user) {
@@ -43,28 +43,28 @@ export const getProfile = async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'Profile fetched successfully',
-    data: formatProfile(user)
+    message: 'User fetched successfully',
+    data: formatUser(user)
   });
 };
 
-export const updateProfile = async (req, res) => {
+export const updateCurrentUser = async (req, res) => {
   const userId = getAuthenticatedUserId(req);
 
   const user = await prisma.user.update({
     where: { id: userId },
     data: req.body,
-    select: profileSelect
+    select: currentUserSelect
   });
 
   res.status(200).json({
     success: true,
-    message: 'Profile updated successfully',
-    data: formatProfile(user)
+    message: 'User updated successfully',
+    data: formatUser(user)
   });
 };
 
-export const deleteProfile = async (req, res) => {
+export const deleteCurrentUser = async (req, res) => {
   const userId = getAuthenticatedUserId(req);
 
   await prisma.$transaction(async (tx) => {
@@ -79,7 +79,7 @@ export const deleteProfile = async (req, res) => {
 
   res.status(200).json({
     success: true,
-    message: 'Profile deleted successfully',
+    message: 'User deleted successfully',
     data: null
   });
 };

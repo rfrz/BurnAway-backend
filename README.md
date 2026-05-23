@@ -211,10 +211,10 @@ Contoh response:
 }
 ```
 
-### Register
+### Create User
 
 ```http
-POST /api/auth/register
+POST /api/users
 ```
 
 Request body:
@@ -242,7 +242,7 @@ Contoh response:
 ```json
 {
   "success": true,
-  "message": "User registered successfully",
+  "message": "User created successfully",
   "data": {
     "user_id": "user-uuid",
     "token": "jwt-token"
@@ -250,10 +250,10 @@ Contoh response:
 }
 ```
 
-### Login
+### Create Session
 
 ```http
-POST /api/auth/login
+POST /api/sessions
 ```
 
 Request body:
@@ -270,7 +270,7 @@ Contoh response:
 ```json
 {
   "success": true,
-  "message": "User logged in successfully",
+  "message": "Session created successfully",
   "data": {
     "user_id": "user-uuid",
     "token": "jwt-token"
@@ -281,7 +281,7 @@ Contoh response:
 ### Change Password
 
 ```http
-PATCH /api/auth/change-password
+PATCH /api/users/me/password
 Authorization: Bearer <token>
 ```
 
@@ -318,10 +318,10 @@ Contoh response:
 
 Setelah password berhasil diganti, backend akan menaikkan versi token user. Token lama otomatis tidak valid untuk endpoint yang membutuhkan autentikasi, sehingga client harus menggunakan token baru dari response ini.
 
-### Get Profile
+### Get Current User
 
 ```http
-GET /api/profile
+GET /api/users/me
 Authorization: Bearer <token>
 ```
 
@@ -330,7 +330,7 @@ Contoh response:
 ```json
 {
   "success": true,
-  "message": "Profile fetched successfully",
+  "message": "User fetched successfully",
   "data": {
     "user_id": "user-uuid",
     "username": "developer_01",
@@ -342,10 +342,10 @@ Contoh response:
 }
 ```
 
-### Update Profile
+### Update Current User
 
 ```http
-PATCH /api/profile
+PATCH /api/users/me
 Authorization: Bearer <token>
 ```
 
@@ -360,12 +360,12 @@ Request body dapat berisi salah satu atau beberapa field berikut:
 }
 ```
 
-Minimal satu field harus dikirim. Validasi field sama seperti register.
+Minimal satu field harus dikirim. Validasi field sama seperti create user.
 
-### Delete Profile
+### Delete Current User
 
 ```http
-DELETE /api/profile
+DELETE /api/users/me
 Authorization: Bearer <token>
 ```
 
@@ -376,7 +376,7 @@ Contoh response:
 ```json
 {
   "success": true,
-  "message": "Profile deleted successfully",
+  "message": "User deleted successfully",
   "data": null
 }
 ```
@@ -384,7 +384,7 @@ Contoh response:
 ### Create Prediction
 
 ```http
-POST /api/predictions
+POST /api/users/me/predictions
 Authorization: Bearer <token>
 ```
 
@@ -446,7 +446,7 @@ Contoh response:
 ### Get Prediction History
 
 ```http
-GET /api/predictions
+GET /api/users/me/predictions
 Authorization: Bearer <token>
 ```
 

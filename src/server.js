@@ -4,9 +4,8 @@ import helmet from 'helmet';
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
 import prisma from './config/prismaClient.js';
-import authRoutes from './routes/authRoutes.js';
-import profileRoutes from './routes/profileRoutes.js';
-import predictRoutes from './routes/predictRoutes.js';
+import sessionsRoutes from './routes/sessionsRoutes.js';
+import usersRoutes from './routes/usersRoutes.js';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler.js';
 
 const app = express();
@@ -48,9 +47,8 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.use('/api/auth', authRoutes);
-app.use('/api/profile', profileRoutes);
-app.use('/api', predictRoutes);
+app.use('/api/sessions', sessionsRoutes);
+app.use('/api/users', usersRoutes);
 
 app.use(notFoundHandler);
 app.use(errorHandler);

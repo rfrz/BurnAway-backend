@@ -78,7 +78,7 @@ const formatHistoryItem = (prediction) => ({
   created_at: prediction.created_at
 });
 
-export const createPrediction = async (req, res) => {
+export const createCurrentUserPrediction = async (req, res) => {
   const userId = req.user?.id;
 
   if (!userId) {
@@ -144,7 +144,7 @@ export const createPrediction = async (req, res) => {
   });
 };
 
-export const getPredictionHistory = async (req, res) => {
+export const listCurrentUserPredictions = async (req, res) => {
   const userId = req.user?.id;
 
   if (!userId) {

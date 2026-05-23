@@ -23,7 +23,7 @@ const getAuthenticatedUserId = (req) => {
   return userId;
 };
 
-export const register = async (req, res) => {
+export const createUser = async (req, res) => {
   const { username, email, password, age, experience_years } = req.body;
 
   const hashedPassword = await bcrypt.hash(password, 12);
@@ -46,7 +46,7 @@ export const register = async (req, res) => {
 
   res.status(201).json({
     success: true,
-    message: 'User registered successfully',
+    message: 'User created successfully',
     data: {
       user_id: user.id,
       token
@@ -54,7 +54,7 @@ export const register = async (req, res) => {
   });
 };
 
-export const login = async (req, res) => {
+export const createSession = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await prisma.user.findUnique({
@@ -73,9 +73,9 @@ export const login = async (req, res) => {
 
   const token = signToken(user.id, user.tokenVersion);
 
-  res.status(200).json({
+  res.status(201).json({
     success: true,
-    message: 'User logged in successfully',
+    message: 'Session created successfully',
     data: {
       user_id: user.id,
       token
@@ -83,7 +83,7 @@ export const login = async (req, res) => {
   });
 };
 
-export const changePassword = async (req, res) => {
+export const updateCurrentUserPassword = async (req, res) => {
   const userId = getAuthenticatedUserId(req);
   const { current_password, new_password } = req.body;
 

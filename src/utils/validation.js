@@ -12,7 +12,7 @@ export const validateBody = (schema) => (req, res, next) => {
   next();
 };
 
-export const registerSchema = z
+export const createUserSchema = z
   .object({
     username: z
       .string()
@@ -42,7 +42,7 @@ export const registerSchema = z
   })
   .strict();
 
-export const loginSchema = z
+export const createSessionSchema = z
   .object({
     email: z
       .string()
@@ -54,7 +54,7 @@ export const loginSchema = z
   })
   .strict();
 
-export const changePasswordSchema = z
+export const updateCurrentUserPasswordSchema = z
   .object({
     current_password: z
       .string()
@@ -71,7 +71,7 @@ export const changePasswordSchema = z
     path: ['new_password']
   });
 
-export const updateProfileSchema = z
+export const updateCurrentUserSchema = z
   .object({
     username: z
       .string()
@@ -101,7 +101,7 @@ export const updateProfileSchema = z
   })
   .strict()
   .refine((data) => Object.keys(data).length > 0, {
-    message: 'At least one profile field is required'
+    message: 'At least one user field is required'
   });
 
 export const predictionSchema = z
