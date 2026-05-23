@@ -12,6 +12,7 @@ model User {
   username         String       @unique
   email            String       @unique
   password         String
+  tokenVersion     Int          @default(0)
   age              Int
   experience_years Float
   createdAt        DateTime     @default(now())

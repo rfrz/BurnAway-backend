@@ -29,15 +29,22 @@ export const authenticate = async (req, res, next) => {
 
     const user = await prisma.user.findUnique({
       where: { id: decoded.userId },
-      select: { id: true }
+      select: { id: true, tokenVersion: true }
     });
 
     if (!user) {
       throw new AppError('Authenticated user was not found', 404);
     }
 
+    const tokenVersion = Number.isInteger(decoded.tokenVersion) ? decoded.tokenVersion : 0;
+
+    if (tokenVersion !== user.tokenVersion) {
+      throw new AppError('Invalid or expired authentication token', 401);
+    }
+
     req.user = {
-      id: user.id
+      id: user.id,
+      tokenVersion: user.tokenVersion
     };
 
     next();

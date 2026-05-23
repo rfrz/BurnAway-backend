@@ -278,6 +278,46 @@ Contoh response:
 }
 ```
 
+### Change Password
+
+```http
+PATCH /api/auth/change-password
+Authorization: Bearer <token>
+```
+
+Endpoint ini mengganti password user yang sedang login. Password lama wajib dikirim sebagai re-authentication untuk aksi sensitif ini.
+
+Request body:
+
+```json
+{
+  "current_password": "password123",
+  "new_password": "newpassword123"
+}
+```
+
+Validasi:
+
+- `current_password`: wajib diisi, maksimal 128 karakter.
+- `new_password`: 8-128 karakter.
+- `new_password` harus berbeda dari `current_password`.
+- Konfirmasi password dilakukan di frontend, bukan di backend.
+
+Contoh response:
+
+```json
+{
+  "success": true,
+  "message": "Password changed successfully",
+  "data": {
+    "user_id": "user-uuid",
+    "token": "new-jwt-token"
+  }
+}
+```
+
+Setelah password berhasil diganti, backend akan menaikkan versi token user. Token lama otomatis tidak valid untuk endpoint yang membutuhkan autentikasi, sehingga client harus menggunakan token baru dari response ini.
+
 ### Get Profile
 
 ```http

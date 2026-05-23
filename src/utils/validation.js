@@ -54,6 +54,23 @@ export const loginSchema = z
   })
   .strict();
 
+export const changePasswordSchema = z
+  .object({
+    current_password: z
+      .string()
+      .min(1, 'Current password is required')
+      .max(128, 'Current password must be at most 128 characters'),
+    new_password: z
+      .string()
+      .min(8, 'New password must be at least 8 characters')
+      .max(128, 'New password must be at most 128 characters')
+  })
+  .strict()
+  .refine((data) => data.current_password !== data.new_password, {
+    message: 'New password must be different from current password',
+    path: ['new_password']
+  });
+
 export const updateProfileSchema = z
   .object({
     username: z
