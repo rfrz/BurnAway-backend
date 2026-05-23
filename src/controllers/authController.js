@@ -3,7 +3,7 @@ import jwt from 'jsonwebtoken';
 import prisma from '../config/prismaClient.js';
 import { AppError } from '../middlewares/errorHandler.js';
 
-const signToken = (userId, tokenVersion = 0) => {
+const signToken = (userId, tokenVersion) => {
   if (!process.env.JWT_SECRET) {
     throw new AppError('JWT secret is not configured', 500);
   }

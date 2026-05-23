@@ -193,6 +193,8 @@ Endpoint yang membutuhkan autentikasi harus mengirim header:
 Authorization: Bearer <token>
 ```
 
+Backend hanya menerima token yang diterbitkan oleh versi saat ini. Token lama yang tidak membawa versi token tidak didukung.
+
 ### Health Check
 
 ```http

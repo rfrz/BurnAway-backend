@@ -23,7 +23,7 @@ export const authenticate = async (req, res, next) => {
       throw new AppError('Invalid or expired authentication token', 401);
     }
 
-    if (!decoded?.userId) {
+    if (!decoded?.userId || !Number.isInteger(decoded.tokenVersion)) {
       throw new AppError('Invalid authentication token', 401);
     }
 
@@ -36,9 +36,7 @@ export const authenticate = async (req, res, next) => {
       throw new AppError('Authenticated user was not found', 404);
     }
 
-    const tokenVersion = Number.isInteger(decoded.tokenVersion) ? decoded.tokenVersion : 0;
-
-    if (tokenVersion !== user.tokenVersion) {
+    if (decoded.tokenVersion !== user.tokenVersion) {
       throw new AppError('Invalid or expired authentication token', 401);
     }
 
