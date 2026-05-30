@@ -24,7 +24,7 @@ const getAuthenticatedUserId = (req) => {
 };
 
 export const createUser = async (req, res) => {
-  const { username, email, password, age, experience_years } = req.body;
+  const { username, email, password, birth_date, experience_years } = req.body;
 
   const hashedPassword = await bcrypt.hash(password, 12);
 
@@ -33,7 +33,7 @@ export const createUser = async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      age,
+      birth_date,
       experience_years
     },
     select: {

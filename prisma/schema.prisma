@@ -13,7 +13,7 @@ model User {
   email            String       @unique
   password         String
   tokenVersion     Int          @default(0)
-  age              Int
+  birth_date       DateTime
   experience_years Float
   createdAt        DateTime     @default(now())
   predictions      Prediction[]

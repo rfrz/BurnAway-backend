@@ -5,7 +5,7 @@ const currentUserSelect = {
   id: true,
   username: true,
   email: true,
-  age: true,
+  birth_date: true,
   experience_years: true,
   createdAt: true
 };
@@ -14,7 +14,7 @@ const formatUser = (user) => ({
   user_id: user.id,
   username: user.username,
   email: user.email,
-  age: user.age,
+  birth_date: user.birth_date,
   experience_years: user.experience_years,
   created_at: user.createdAt
 });

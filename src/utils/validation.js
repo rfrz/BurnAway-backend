@@ -30,11 +30,17 @@ export const createUserSchema = z
       .string()
       .min(8, 'Password must be at least 8 characters')
       .max(128, 'Password must be at most 128 characters'),
-    age: z.coerce
-      .number()
-      .int('Age must be an integer')
-      .min(13, 'Age must be at least 13')
-      .max(100, 'Age must be at most 100'),
+    birth_date: z.coerce
+      .date()
+      .refine((date) => {
+        const today = new Date();
+        let age = today.getFullYear() - date.getFullYear();
+        const m = today.getMonth() - date.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < date.getDate())) {
+          age--;
+        }
+        return age >= 13 && age <= 100;
+      }, 'Age must be between 13 and 100'),
     experience_years: z.coerce
       .number()
       .min(0, 'Experience years cannot be negative')
@@ -87,11 +93,17 @@ export const updateCurrentUserSchema = z
       .max(255, 'Email must be at most 255 characters')
       .transform((email) => email.toLowerCase())
       .optional(),
-    age: z.coerce
-      .number()
-      .int('Age must be an integer')
-      .min(13, 'Age must be at least 13')
-      .max(100, 'Age must be at most 100')
+    birth_date: z.coerce
+      .date()
+      .refine((date) => {
+        const today = new Date();
+        let age = today.getFullYear() - date.getFullYear();
+        const m = today.getMonth() - date.getMonth();
+        if (m < 0 || (m === 0 && today.getDate() < date.getDate())) {
+          age--;
+        }
+        return age >= 13 && age <= 100;
+      }, 'Age must be between 13 and 100')
       .optional(),
     experience_years: z.coerce
       .number()

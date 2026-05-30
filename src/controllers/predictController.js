@@ -2,8 +2,18 @@ import prisma from '../config/prismaClient.js';
 import { getBurnoutPrediction } from '../services/aiService.js';
 import { AppError } from '../middlewares/errorHandler.js';
 
+const calculateAge = (birthDate) => {
+  const today = new Date();
+  let age = today.getFullYear() - birthDate.getFullYear();
+  const m = today.getMonth() - birthDate.getMonth();
+  if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+    age--;
+  }
+  return age;
+};
+
 const toMlPayload = (user, metrics) => ({
-  age: user.age,
+  age: calculateAge(new Date(user.birth_date)),
   experience_years: user.experience_years,
   daily_work_hours: metrics.daily_work_hours,
   sleep_hours: metrics.sleep_hours,
@@ -88,7 +98,7 @@ export const createCurrentUserPrediction = async (req, res) => {
   const user = await prisma.user.findUnique({
     where: { id: userId },
     select: {
-      age: true,
+      birth_date: true,
       experience_years: true
     }
   });

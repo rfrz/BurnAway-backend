@@ -223,21 +223,21 @@ Request body:
 
 ```json
 {
-  "username": "developer_01",
-  "email": "developer@example.com",
-  "password": "password123",
-  "age": 24,
-  "experience_years": 2
+  "username": "johndoe",
+  "email": "johndoe@example.com",
+  "password": "securepassword123",
+  "birth_date": "1998-05-12T00:00:00.000Z",
+  "experience_years": 3.5
 }
 ```
 
 Validasi:
 
 - `username`: 3-50 karakter, hanya huruf, angka, dan underscore.
-- `email`: format email valid, maksimal 255 karakter.
-- `password`: 8-128 karakter.
-- `age`: integer 13-100.
-- `experience_years`: angka 0-80.
+- `email`: string, valid email.
+- `password`: string, 8-128 characters.
+- `birth_date`: string, ISO-8601 date format, user must be between 13 and 100 years old.
+- `experience_years`: number, >= 0.
 
 Contoh response:
 
@@ -334,11 +334,11 @@ Contoh response:
   "success": true,
   "message": "User fetched successfully",
   "data": {
-    "user_id": "user-uuid",
-    "username": "developer_01",
-    "email": "developer@example.com",
-    "age": 24,
-    "experience_years": 2,
+    "user_id": "uuid-string",
+    "username": "johndoe",
+    "email": "johndoe@example.com",
+    "birth_date": "1998-05-12T00:00:00.000Z",
+    "experience_years": 3.5,
     "created_at": "2026-05-23T00:00:00.000Z"
   }
 }
