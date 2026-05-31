@@ -7,7 +7,9 @@ import {
 } from '../controllers/profileController.js';
 import {
   createCurrentUserPrediction,
-  listCurrentUserPredictions
+  listCurrentUserPredictions,
+  getCurrentUserPredictionById,
+  deleteCurrentUserPredictionById
 } from '../controllers/predictController.js';
 import { authenticate } from '../middlewares/authMiddleware.js';
 import { asyncHandler } from '../middlewares/errorHandler.js';
@@ -38,5 +40,7 @@ router.post(
   asyncHandler(createCurrentUserPrediction)
 );
 router.get('/me/predictions', authenticate, asyncHandler(listCurrentUserPredictions));
+router.get('/me/predictions/:predictionId', authenticate, asyncHandler(getCurrentUserPredictionById));
+router.delete('/me/predictions/:predictionId', authenticate, asyncHandler(deleteCurrentUserPredictionById));
 
 export default router;
