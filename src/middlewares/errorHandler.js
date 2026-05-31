@@ -36,6 +36,7 @@ export const notFoundHandler = (req, res, next) => {
   next(new AppError(`Route ${req.originalUrl} not found`, 404));
 };
 
+// eslint-disable-next-line no-unused-vars
 export const errorHandler = (err, req, res, next) => {
   let statusCode = err.statusCode || 500;
   let message = err.message || 'Internal server error';
