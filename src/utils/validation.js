@@ -126,6 +126,6 @@ export const predictionSchema = z
     meetings_per_day: z.coerce.number().int().min(0).max(100),
     screen_time: z.coerce.number().min(0).max(24),
     exercise_hours: z.coerce.number().min(0).max(24),
-    stress_level: z.coerce.number().min(0).max(100)
+    stress_level: z.coerce.number().min(0).max(10)
   })
   .strict();

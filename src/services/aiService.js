@@ -17,6 +17,22 @@ const getPredictUrl = () => {
   return `${process.env.DL_API_URL.replace(/\/$/, '')}/${predictPath.replace(/^\//, '')}`;
 };
 
+const summarizeAiError = (data) => {
+  if (!data) return '';
+
+  const detail = data.detail || data.message || data.error || data;
+
+  if (typeof detail === 'string') {
+    return detail;
+  }
+
+  try {
+    return JSON.stringify(detail);
+  } catch {
+    return 'Unreadable error response';
+  }
+};
+
 export const getBurnoutPrediction = async (payload) => {
   try {
     const response = await aiClient.post(getPredictUrl(), payload);
@@ -26,8 +42,15 @@ export const getBurnoutPrediction = async (payload) => {
       throw new AppError('DL prediction service timed out', 503);
     }
 
-    if (error.response || error.request) {
-      throw new AppError('DL prediction service is unavailable', 503);
+    if (error.response) {
+      const detail = summarizeAiError(error.response.data);
+      const status = error.response.status;
+      const suffix = detail ? `: ${detail}` : '';
+      throw new AppError(`DL prediction service returned ${status}${suffix}`, 503);
+    }
+
+    if (error.request) {
+      throw new AppError('DL prediction service did not respond', 503);
     }
 
     throw error;
