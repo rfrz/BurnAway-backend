@@ -5,7 +5,7 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "tokenVersion" INTEGER NOT NULL DEFAULT 0,
-    "age" INTEGER NOT NULL,
+    "birth_date" TIMESTAMP(3) NOT NULL,
     "experience_years" DOUBLE PRECISION NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
