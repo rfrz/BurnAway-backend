@@ -9,6 +9,7 @@ import usersRoutes from './routes/usersRoutes.js';
 import { errorHandler, notFoundHandler } from './middlewares/errorHandler.js';
 
 const app = express();
+app.set('trust proxy', 1);
 const port = process.env.PORT || 3000;
 
 const corsOrigin = process.env.CORS_ORIGIN || '*';
