@@ -1,3 +1,12 @@
+---
+title: BurnAway Backend
+emoji: 🔥
+colorFrom: blue
+colorTo: red
+sdk: docker
+app_port: 7860
+---
+
 # BurnAway Backend
 
 BurnAway is a comprehensive API gateway and backend service designed for predicting burnout risk in software developers. It bridges user management, mental health assessments, and external AI/Deep Learning services to provide real-time burnout predictions and personalized recovery interventions.
