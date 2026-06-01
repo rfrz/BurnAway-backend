@@ -35,7 +35,13 @@ const summarizeAiError = (data) => {
 
 export const getBurnoutPrediction = async (payload) => {
   try {
-    const response = await aiClient.post(getPredictUrl(), payload);
+    const config = {};
+    if (process.env.HF_TOKEN) {
+      config.headers = {
+        Authorization: `Bearer ${process.env.HF_TOKEN}`
+      };
+    }
+    const response = await aiClient.post(getPredictUrl(), payload, config);
     return response.data;
   } catch (error) {
     if (error.code === 'ECONNABORTED') {
