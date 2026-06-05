@@ -9,6 +9,8 @@ app_port: 7860
 
 # BurnAway Backend
 
+## 📖 Deskripsi Singkat Proyek
+
 BurnAway is a comprehensive API gateway and backend service designed for predicting burnout risk in software developers. It bridges user management, mental health assessments, and external AI/Deep Learning services to provide real-time burnout predictions and personalized recovery interventions.
 
 ## 🚀 Tech Stack
@@ -21,14 +23,16 @@ BurnAway is a comprehensive API gateway and backend service designed for predict
 - **Networking**: Axios
 - **Security**: Helmet, express-rate-limit, CORS
 
-## 📋 Prerequisites
+## 🛠️ Petunjuk Setup Environment
+
+### 📋 Prerequisites
 
 Before you begin, ensure you have the following installed:
 - [Node.js](https://nodejs.org/) (v18 or higher recommended)
 - [PostgreSQL](https://www.postgresql.org/) database
 - (Optional) Docker & Docker Compose for containerized development
 
-## ⚙️ Environment Variables
+### ⚙️ Environment Variables
 
 Create a `.env` file in the root of the backend directory. You can use `.env.example` as a reference:
 
@@ -42,7 +46,7 @@ DL_PREDICT_PATH="/predict_burnout"
 CORS_ORIGIN="*"
 ```
 
-## 📦 Installation
+### 📦 Installation
 
 1. Install dependencies:
    ```bash
@@ -55,7 +59,11 @@ CORS_ORIGIN="*"
    npm run prisma:migrate
    ```
 
-## 🛠️ Running the Server
+## 🔗 Tautan Model ML (Jika Ada)
+
+Tidak berlaku untuk repositori Backend. Model Machine Learning dikelola dan dijalankan secara terpisah pada repositori AI Engineer.
+
+## 🚀 Cara Menjalankan Aplikasi
 
 ### Development Mode (with hot-reload)
 ```bash
